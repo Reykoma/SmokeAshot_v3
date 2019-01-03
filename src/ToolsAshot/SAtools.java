@@ -30,7 +30,6 @@ public class SAtools {
     }
 
 
-
     static Screenshot ScreenAllviewPage(Set<By> ignorElements) {
         System.out.println("Делаем скрины с площадки: " + SA.driver.getCurrentUrl());
         System.out.println("Через метод ScreenAllviewPage. Скрин видимой части страницы с учетом игноров ");
@@ -112,7 +111,7 @@ public class SAtools {
         StringBuilder str = new StringBuilder(s);
 
         // insert character value at offset 8
-//        str.insert(11, ".staging");
+        str.insert(11, ".staging");
         String stage = str.toString();
         openUrl(stage);
         return s;
@@ -186,7 +185,6 @@ public class SAtools {
 //        }
 
 
-
     }
 
     public static void startWebDriver() {
@@ -216,7 +214,7 @@ public class SAtools {
 
     public static void jsWindowClose() {
         ArrayList<String> tabs = new ArrayList<String>(SA.driver.getWindowHandles());
-      ((JavascriptExecutor) SA.driver).executeScript("window.close()");
+        ((JavascriptExecutor) SA.driver).executeScript("window.close()");
         SA.driver.switchTo().window(tabs.get(0));
         ((JavascriptExecutor) SA.driver).executeScript("window.close()");
     }
@@ -234,41 +232,44 @@ public class SAtools {
 
     //Скролл до подвала. Потом ожидание подгрузки новых элементов, потом снова скрол. И так пока до подвала не доскролим.
     public static void scrollForFooter() throws InterruptedException {
+
+        //Узнаем текущую длинну страницы и помещаем значение в переменную contentWidt1h1
+        JavascriptExecutor js = (JavascriptExecutor) SA.driver;
+        int contentWidt1h1 = ((Number) js.executeScript("return document.body.scrollHeight")).intValue();
+
         WebElement webElement = SA.driver.findElement(By.cssSelector(".footer"));
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
 
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
-
-        Thread.sleep(200);
-        ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();" ,webElement);
+        //Цикл. Если длинна страницы "длинная" то есть больше 15000px то ничего не делаем. Если же меньше 15000px то скролим до подвала с ожиданиями
+        if (contentWidt1h1 >= 15000) {
+            System.out.println("Метод scrollForFooter. Длинна страницы больше 15000px, пропускаем скролл");
+        } else {
+            System.out.println("Метод scrollForFooter. Длинна страницы меньше 15000px, скролим до подвала");
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+            Thread.sleep(200);
+            ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+        }
     }
 
-    public static Screenshot screenElementsAndAddIgnor(String  elements, Set<By> ignorElements) {
+    public static Screenshot screenElementsAndAddIgnor(String elements, Set<By> ignorElements) {
 
         System.out.println("Внутри метода скриншотилки" + elements);
 
