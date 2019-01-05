@@ -49,7 +49,7 @@ public class MainTests {
 //
 
 
-    @Test
+    @Test(retryAnalyzer = RestartTest.class)
     public void topline() throws IOException, InterruptedException {
 
         SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".topline__wrapper");
@@ -141,7 +141,7 @@ public class MainTests {
 
 
 
-    @Test()
+    @Test(retryAnalyzer = RestartTest.class)
     //Блок Центральная колонка. Первая большая карточка в блоке
     public void central_column_big_item() throws IOException, InterruptedException {
         SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".js-index-central-column-big");
