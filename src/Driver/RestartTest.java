@@ -8,7 +8,7 @@ public class RestartTest implements IRetryAnalyzer {
     private int retryCount = 0;
 
     //Количество перезапусков
-    private static final int maxRetryCount = 1;
+    private static final int maxRetryCount = 0;
 
     @Override
     public boolean retry(ITestResult result) {

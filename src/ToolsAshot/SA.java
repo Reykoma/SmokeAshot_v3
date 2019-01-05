@@ -1,6 +1,5 @@
 package ToolsAshot;
 
-import ToolsAshot.SAtools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,11 +28,13 @@ public class SA {
 
     //Метод скриншотилки. Сперва происходит скролл до подвала, А потом уже скрин с прокруткой блока через ShootingStrategies
     public static void ashot2scrollForFooterAndWait(String url, String element) throws IOException, InterruptedException {
+
+        System.out.println("метод ashot2scrollForFooterAndWait. Запуск");
         //Проверка запущен ли браузер. И если не запущен Запуск браузера
         SAtools.startWebDriver();
 
-//        Открываем ПРОД
-        SAtools.openUrl(url);
+        //Открываем прод через этот метод
+        SAtools.openProd2(url);
 
 //        Закрепляем шапку, чтобы не мешала при скроле НЕ РАБОТАЕТ для в10
         SAtools.fixTopLine();
@@ -46,10 +47,14 @@ public class SA {
         SAtools.saveScreenshot("Prod", prodScreenshot, element);
 
         //Открываем новую вкладку
-        SAtools.openNewTab();
+//        SAtools.openNewTabOrSwitchToStage(url);
 
-//        открываем СТЕЙДЖ
-        SAtools.openStageUrl(url);
+        System.out.println("openStageUrl");
+
+        //Открываем стейдж через этот метод
+        SAtools.openStage2(url);
+
+        System.out.println("fixTopLine");
 
         //        Закрепляем шапку, чтобы не мешала при скроле НЕ РАБОТАЕТ для в10
         SAtools.fixTopLine();
@@ -67,20 +72,21 @@ public class SA {
         Screenshot stageScreenshot = SAtools.screenShootingStrategy(element);
         SAtools.saveScreenshot("Stage", stageScreenshot, element);
 
+        SAtools.switchToProd();
+
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
-
     }
 
     //Метод скриншотилки с игнором элементов.
-    public static void ashot3ShootingAndIgnoreElements(String url, String element, Set<By> ignorElements) throws IOException {
+    public static void ashot3ShootingAndIgnoreElements(String url, String element, Set<By> ignorElements) throws IOException, InterruptedException {
         //Метод скриншотилки. Для длинных элементов. С игнором. С прокруткой
-
+        System.out.println("метод ashot3ShootingAndIgnoreElements. Запуск");
         //Проверка запущен ли браузер. И если не запущен Запуск браузера
         SAtools.startWebDriver();
 
-//        Открываем ПРОД
-        SAtools.openUrl(url);
+        //Открываем прод через этот метод
+        SAtools.openProd2(url);
 
 //        Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
@@ -94,10 +100,10 @@ public class SA {
         SAtools.saveScreenshot("Prod", prodScreenshot, element);
 
         //Открываем новую вкладку
-        SAtools.openNewTab();
+//        SAtools.openNewTabOrSwitchToStage(url);
 
-//        открываем СТЕЙДЖ
-        SAtools.openStageUrl(url);
+        //Открываем стейдж через этот метод
+        SAtools.openStage2(url);
 
 //        Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
@@ -112,47 +118,52 @@ public class SA {
         Screenshot stageScreenshot = SAtools.screenLongElementWithIgnor(element, ignorElements);
         SAtools.saveScreenshot("Stage", stageScreenshot, element);
 
+        SAtools.switchToProd();
+
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
 
     }
 
     //Метод скриншотилки. Просто сразу элемента
-    public static void ashot1liteScreen(String url, String element) throws IOException {
+    public static void ashot1liteScreen(String url, String element) throws IOException, InterruptedException {
+        System.out.println("метод ashot1liteScreen. Запуск");
 
         //Проверка запущен ли браузер. И если не запущен Запуск браузера
         SAtools.startWebDriver();
 
+        //Открываем прод через этот метод
+        SAtools.openProd2(url);
+
 //        Открываем ПРОД
-        SAtools.openUrl(url);
+//        SAtools.openUrl(url);
 
 //        делаем скрин
         Screenshot prodScreenshot = SAtools.screenLite(element);
         SAtools.saveScreenshot("Prod", prodScreenshot, element);
 
-        //Открываем новую вкладку
-        SAtools.openNewTab();
-
-//        открываем СТЕЙДЖ
-        SAtools.openStageUrl(url);
+        //Открываем стейдж через этот метод
+        SAtools.openStage2(url);
 
 //        делаем скрин
         Screenshot stageScreenshot = SAtools.screenLite(element);
         SAtools.saveScreenshot("Stage", stageScreenshot, element);
 
+        SAtools.switchToProd();
+
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
-
     }
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public static void ashot4ScreenElementsGroup(String url, String cssSelector,Set<By> setIgnoredElements,String screenName) throws IOException, InterruptedException {
+        System.out.println("метод ashot4ScreenElementsGroup. Запуск");
 
         //Проверка запущен ли браузер. И если не запущен Запуск браузера
         SAtools.startWebDriver();
 
-//        Открываем ПРОД
-        SAtools.openUrl(url);
+        //Открываем прод через этот метод
+        SAtools.openProd2(url);
 
         //Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
@@ -170,10 +181,10 @@ public class SA {
         SAtools.saveScreenshot("Prod", prodScreenshot, screenName);
 
         //Открываем новую вкладку
-        SAtools.openNewTab();
+//        SAtools.openNewTabOrSwitchToStage(url);
 
 //        открываем СТЕЙДЖ
-        SAtools.openStageUrl(url);
+        SAtools.openStage2(url);
 
         //        Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
@@ -190,6 +201,9 @@ public class SA {
                 .takeScreenshot(driver, elements5);
 
         SAtools.saveScreenshot("Stage", stageScreenshot, screenName);
+
+        SAtools.switchToProd();
+
 
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, screenName);

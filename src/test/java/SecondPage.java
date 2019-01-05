@@ -52,22 +52,22 @@ public class SecondPage {
     //НЕ СДЕЛАНО. Блок с рекламой внизу материала
 
 
-    @Test(retryAnalyzer = RestartTest.class)
-    //Страница Рубрики. Скрин первых 5 элементов
-    public void dfgdfgfg() throws IOException, InterruptedException {
-
-        //Проставляем нужную куку
-        SAtools.startWebDriver();
-        SAtools.openUrl("https://www.rbc.ru/inttotestv10A");
-
-        String url = ("https://www.rbc.ru/business/");
-
-        String cssSelector = ".g-overflow";
-
-
-        SA.ashot1liteScreen(url,cssSelector);
-        Assert.assertEquals(SA.diff1.getDiffSize(), 0);
-    }
+//    @Test(retryAnalyzer = RestartTest.class)
+//    //Страница Рубрики. Скрин первых 5 элементов
+//    public void dfgdfgfg() throws IOException, InterruptedException {
+//
+//        //Проставляем нужную куку
+//        SAtools.startWebDriver();
+//        SAtools.openUrl("https://www.rbc.ru/inttotestv10A");
+//
+//        String url = ("https://www.rbc.ru/business/");
+//
+//        String cssSelector = ".g-overflow";
+//
+//
+//        SA.ashot1liteScreen(url,cssSelector);
+//        Assert.assertEquals(SA.diff1.getDiffSize(), 0);
+//    }
 
 
 
