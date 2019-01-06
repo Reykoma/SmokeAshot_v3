@@ -34,10 +34,7 @@ public class MainTests {
 
 Нужно улучшить:
 - Доделать остальные блоки
-- Подправить то, что создаются лишние пустые вкладки при перезапуске
-- Подправить чтобы не было избыточного скрола на странице, если не было перезапуска
 - Вторые страницы
-- Перезапускать тоьлко после того как один раз все тесты попробовали прогнать
      */
 
 
@@ -54,9 +51,6 @@ public class MainTests {
 
         SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".topline__wrapper");
 
-        assertEquals(SA.diff1.getDiffSize(), 0);
-        System.out.println("Сравнение проиведено");
-
     }
 
     @Test(retryAnalyzer = RestartTest.class)
@@ -66,7 +60,6 @@ public class MainTests {
         setIgnoredElements.add(By.cssSelector(".topline__forecast__move"));
 
         SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/inttotestv10A", ".l-col-left-border", setIgnoredElements);
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
 
@@ -74,7 +67,6 @@ public class MainTests {
     //Заголовок Ленты новостей
     public void newsFeedHeader() throws IOException, InterruptedException {
         SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".news-feed__header");
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
     @Test(retryAnalyzer = RestartTest10.class)
@@ -93,13 +85,9 @@ public class MainTests {
         //Название png файликов с полученными скринами
         String screenName = "Newsfeed";
 
-        SA.ashot4ScreenElementsGroup(url, cssSelector,setIgnoredElements,screenName);
-        assertEquals(SA.diff1.getDiffSize(), 0);
+        SA.ashot4ScreenElementsGroup(url, cssSelector, setIgnoredElements, screenName);
 
-
-}
-
-
+    }
 
 
     @Test(retryAnalyzer = RestartTest.class)
@@ -111,14 +99,12 @@ public class MainTests {
         setIgnoredElements.add(By.cssSelector(".main__big__title"));
 
         SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/inttotestv10A", ".main.js-index-central-column-type", setIgnoredElements);
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
     @Test(retryAnalyzer = RestartTest.class)
     //Блок Главное за сутки. Заголовок первого материала.
     public void main__big__title() throws IOException, InterruptedException {
         SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".main__big__title");
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
     //    @Test //Биллборд. НЕ СДЕЛАНО
@@ -127,27 +113,8 @@ public class MainTests {
     //Блок Главное за сутки. Остальные элементы блока
     public void main__list() throws IOException, InterruptedException {
         SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".main__list");
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
-    @Test(retryAnalyzer = RestartTest.class)
-    //Блок Центральная колонка. Первый материал
-    public void central_column_small_item() throws IOException, InterruptedException {
-        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".js-index-central-column-main");
-        assertEquals(SA.diff1.getDiffSize(), 0);
-    }
-
-
-
-
-
-    @Test(retryAnalyzer = RestartTest.class)
-    //Блок Центральная колонка. Первая большая карточка в блоке
-    public void central_column_big_item() throws IOException, InterruptedException {
-        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".js-index-central-column-big");
-        System.out.println("эээ...");
-        assertEquals(SA.diff1.getDiffSize(), 0);
-    }
 
     @Test(retryAnalyzer = RestartTest.class)
 //Блок Центральная колонка. Первые 4 карточки материалов. (три маленьких и одна большая)
@@ -165,7 +132,6 @@ public class MainTests {
         String screenName = "central_column_main";
 
         SA.ashot4ScreenElementsGroup(url, cssSelector, setIgnoredElements, screenName);
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
 
 //    @Test(retryAnalyzer = RestartTest.class)
@@ -216,12 +182,12 @@ public class MainTests {
 
     //    @Test //Блок Правая колонка. ТГБ
 
-    @Test(retryAnalyzer = RestartTest.class)
-    //Блок Опросы в правой колонке
-    public void poll_opinion() throws IOException, InterruptedException {
-        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".poll-opinion");
-        assertEquals(SA.diff1.getDiffSize(), 0);
-    }
+    //НЕ стабильная вещь. рендерниг страницы происходит со смещением в пару пикселей. и по этому очень часто стейдж отличается от прода в этом блоке.
+//    @Test(retryAnalyzer = RestartTest.class)
+//    //Блок Опросы в правой колонке
+//    public void poll_opinion() throws IOException, InterruptedException {
+//        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".poll-opinion");
+//    }
 
     //    @Test //Блок Правая колонка. Второй баннер
 
@@ -230,28 +196,7 @@ public class MainTests {
     //Блок Футер/Подвал
     public void footer() throws IOException, InterruptedException {
         SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".footer");
-        assertEquals(SA.diff1.getDiffSize(), 0);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @AfterSuite

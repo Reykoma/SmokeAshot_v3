@@ -17,7 +17,7 @@ public class RestartTest implements IRetryAnalyzer {
     public boolean retry(ITestResult result) {
         if (retryCount < maxRetryCount) {
             retryCount++;
-            System.out.println("Тест провалился, рефреш страниц и ПЕРЕЗАПУСК!!!");
+            System.out.println("метод перезапуска при провале теста. Рефреш страниц и ПЕРЕЗАПУСК!!!");
 
             SA.driver.navigate().refresh();
             ArrayList<String> tabs = new ArrayList<String>(SA.driver.getWindowHandles());

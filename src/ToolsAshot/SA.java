@@ -49,12 +49,10 @@ public class SA {
         //Открываем новую вкладку
 //        SAtools.openNewTabOrSwitchToStage(url);
 
-        System.out.println("openStageUrl");
 
         //Открываем стейдж через этот метод
         SAtools.openStage2(url);
 
-        System.out.println("fixTopLine");
 
         //        Закрепляем шапку, чтобы не мешала при скроле НЕ РАБОТАЕТ для в10
         SAtools.fixTopLine();
@@ -76,6 +74,8 @@ public class SA {
 
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
+
+        SAtools.asserting();
     }
 
     //Метод скриншотилки с игнором элементов.
@@ -123,6 +123,8 @@ public class SA {
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
 
+        SAtools.asserting();
+
     }
 
     //Метод скриншотилки. Просто сразу элемента
@@ -153,6 +155,9 @@ public class SA {
 
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, element);
+
+        SAtools.asserting();
+
     }
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -208,6 +213,7 @@ public class SA {
 //        Сравниваем
         SAtools.imageDiffer(prodScreenshot, stageScreenshot, screenName);
 
+        SAtools.asserting();
 
     }
 

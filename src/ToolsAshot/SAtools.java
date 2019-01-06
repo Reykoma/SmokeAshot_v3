@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.assertEquals;
+
 public class SAtools {
 
     static Screenshot screenLite(String element) {
@@ -323,14 +325,14 @@ public class SAtools {
         //Узнаем текущую длинну страницы и помещаем значение в переменную contentWidt1h1
         JavascriptExecutor js = (JavascriptExecutor) SA.driver;
         int contentWidt1h1 = ((Number) js.executeScript("return document.body.scrollHeight")).intValue();
-        System.out.println("Текущая длинна страницы " + contentWidt1h1);
+        System.out.println("Метод scrollForFooter. Текущая длинна страницы " + contentWidt1h1);
         WebElement webElement = SA.driver.findElement(By.cssSelector(".footer"));
 
         //Цикл. Если длинна страницы "длинная" то есть больше 15000px то ничего не делаем. Если же меньше 15000px то скролим до подвала с ожиданиями
         if (contentWidt1h1 >= 15000) {
-            System.out.println("Метод scrollForFooter. Длинна страницы больше 15000px, пропускаем скролл");
+            System.out.println("Длинна страницы больше 15000px, пропускаем скролл");
         } else {
-            System.out.println("Метод scrollForFooter. Длинна страницы меньше 15000px, скролим до подвала");
+            System.out.println("Длинна страницы меньше 15000px, скролим до подвала");
             Thread.sleep(200);
             ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
             Thread.sleep(200);
@@ -358,7 +360,7 @@ public class SAtools {
 
     public static Screenshot screenElementsAndAddIgnor(String elements, Set<By> ignorElements) {
 
-        System.out.println("Внутри метода скриншотилки" + elements);
+        System.out.println("Внутри метода скриншотилки " + elements);
 
         List<WebElement> elementsList = SA.driver.findElements(By.cssSelector(elements));
 
@@ -386,9 +388,6 @@ public class SAtools {
         System.out.println("метод openProd2. Текущий урл: " + actualUrl);
 
 
-
-
-
         if (actualUrl.equals("data:,")) {
             System.out.println("если текущий урл 'data:,' то открываем прод");
             openUrl(url);
@@ -410,7 +409,6 @@ public class SAtools {
     }
 
     public static void openStage2(String url) {
-
 
 
         String actualUrl = SA.driver.getCurrentUrl();
@@ -450,6 +448,20 @@ public class SAtools {
             }
         }
 
+
+    }
+
+    public static void asserting() {
+
+        System.out.println("Метод asserting");
+        if (SA.diff1.getDiffSize() == 0) {
+            System.out.println("Различия в пикселях. Ожидаемый рез = 0. Факт = " + SA.diff1.getDiffSize());
+            System.out.println("Тест прошел успешно");
+
+        } else {
+            System.out.println("Ожидаемый рез = 0. Факт больше 0, а именно = " + SA.diff1.getDiffSize());
+        }
+        assertEquals(SA.diff1.getDiffSize(), 0);
 
     }
 }
