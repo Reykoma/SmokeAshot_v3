@@ -13,3 +13,4 @@ https://github.com/Reykoma/SmokeAshot_v3/blob/master/src/ToolsAshot/SA.java
 Непосредственно низкоуровневый код выполняющий всю работу для создания сохранения сравнения и прочего здесь:
 https://github.com/Reykoma/SmokeAshot_v3/blob/master/src/ToolsAshot/SAtools.java
 
+Почта для связи reykoma@gmail.com
