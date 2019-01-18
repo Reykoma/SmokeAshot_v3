@@ -91,6 +91,9 @@ public class SA {
 //        Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
 
+        //Скролл до подвала. Чтобы вся страница подгрузилась. Нужно чтобы потом скрины нормальные получались
+        SAtools.scrollForFooter();
+
 //        делаем скрин
 //        Screenshot prodScreenshot2 = screenLongElementWithIgnor(element, ignorElements);
 //        saveScreenshot("Prod", prodScreenshot2, element);
@@ -107,6 +110,9 @@ public class SA {
 
 //        Закрепляем шапку, чтобы не мешала при скроле
         SAtools.fixTopLine();
+
+        //Скролл до подвала. Чтобы вся страница подгрузилась. Нужно чтобы потом скрины нормальные получались
+        SAtools.scrollForFooter();
 
 
 

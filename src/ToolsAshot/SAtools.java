@@ -289,10 +289,31 @@ public class SAtools {
 //            driver.manage().window().maximize();
             SA.driver.manage().window().setSize(new Dimension(1280, 1000));
 
+            //Костыль для простановки куки от v10
+            addCookie();
+
+
         } else {
             System.out.println("метод startWebDriver. Дравйер уже запущен. return");
             return;
         }
+    }
+
+    private static void addCookie() {
+        //Костыль для простановки куки от v10
+        System.out.println("Открываем v10 для простановки куки");
+        try {
+            SA.driver.get("https://www.rbc.ru/inttotestv10A");
+        } catch (TimeoutException ignore) {
+        }
+
+        ((JavascriptExecutor) SA.driver).executeScript("window.open()");
+        ArrayList<String> tabs2 = new ArrayList<String>(SA.driver.getWindowHandles());
+
+        SA.driver.close();
+
+        //Переключение на новое окно
+        SA.driver.switchTo().window(tabs2.get(1));
     }
 
     public static void quitDriver() {
@@ -331,6 +352,8 @@ public class SAtools {
         //Цикл. Если длинна страницы "длинная" то есть больше 15000px то ничего не делаем. Если же меньше 15000px то скролим до подвала с ожиданиями
         if (contentWidt1h1 >= 15000) {
             System.out.println("Длинна страницы больше 15000px, пропускаем скролл");
+
+
         } else {
             System.out.println("Длинна страницы меньше 15000px, скролим до подвала");
             Thread.sleep(200);
@@ -355,7 +378,12 @@ public class SAtools {
             ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
             Thread.sleep(200);
             ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
+
+
         }
+
+        //Экспериментальный шаг. Возможно повысит стабильносьт тестов на слайдовых страницах
+        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
     }
 
     public static Screenshot screenElementsAndAddIgnor(String elements, Set<By> ignorElements) {
@@ -392,18 +420,37 @@ public class SAtools {
             System.out.println("если текущий урл 'data:,' то открываем прод");
             openUrl(url);
         }
-        if (actualUrl.equals("https://www.rbc.ru/")) {
-            System.out.println("если текущий урл 'https://www.rbc.ru/' Ничего не открываем.");
+
+        else if (actualUrl.equals("about:blank")) {
+            System.out.println("если текущий урл 'data:,' то открываем прод");
+            openUrl(url);
+
 
         }
-        if (actualUrl.equals("https://staging.rbc.ru/")) {
-            System.out.println("если текущий урл 'https://staging.rbc.ru/' Переключаемся на соседнюю вкладку");
+        else if  (actualUrl.equals(url)) {
+            System.out.println("если текущий урл 'url из теста' Ничего не открываем.");
 
-            ArrayList<String> tabs = new ArrayList<String>(SA.driver.getWindowHandles());
-            SA.driver.switchTo().window(tabs.get(0));
-
-            System.out.println("Возвращение на первую вкладку произведено. Ожидаемый урл в текущей вкладке 'https://www.rbc.ru/', факт: = " + SA.driver.getCurrentUrl());
         }
+        else  {
+            System.out.println("текущий урл НЕ равен 'url из теста' открываем урл из теста");
+            openUrl(url);
+        }
+
+
+
+//        System.out.println("если текущий урл 'data:,' то открываем прод");
+//        openUrl(url);
+
+
+//        else //(actualUrl.equals("https://staging.rbc.ru/"))
+//             {
+//            System.out.println("если текущий урл 'https://staging.rbc.ru/' Переключаемся на соседнюю вкладку");
+//
+//            ArrayList<String> tabs = new ArrayList<String>(SA.driver.getWindowHandles());
+//            SA.driver.switchTo().window(tabs.get(0));
+//
+//            System.out.println("Возвращение на первую вкладку произведено. Ожидаемый урл в текущей вкладке 'https://www.rbc.ru/', факт: = " + SA.driver.getCurrentUrl());
+//        }
 
 
     }
@@ -419,33 +466,33 @@ public class SAtools {
         System.out.println("Текущее количество вкладок = " + size);
 
         if (size == 2) {
-            if (actualUrl.equals("https://www.rbc.ru/")) {
-                System.out.println("Если вкладок 2 и если текущий урл 'https://www.rbc.ru/' переключаемся на соседнюю вкладку");
-                SA.driver.switchTo().window(tabs.get(1));
-            }
+//            if (actualUrl.equals("https://www.rbc.ru/")) {
+            System.out.println("Если вкладок 2 переключаемся на соседнюю вкладку");
+            SA.driver.switchTo().window(tabs.get(1));
+//            }
         }
 
         if (size == 1) {
-            if (actualUrl.equals("https://www.rbc.ru/")) {
+//            if (actualUrl.equals(url)) {
 
-                System.out.println("Если вкладок 1 и если текущий урл 'https://www.rbc.ru/' Создаем и переключаемся на соседнюю вкладку");
+            System.out.println("Если вкладок 1 Создаем и переключаемся на соседнюю вкладку");
 
-                //В селениум нет команды на открытие нвого окна. Нужно использоваьт другие средства. Код ниже открывает новое окно
-                ((JavascriptExecutor) SA.driver).executeScript("window.open()");
-                ArrayList<String> tabs2 = new ArrayList<String>(SA.driver.getWindowHandles());
+            //В селениум нет команды на открытие нвого окна. Нужно использоваьт другие средства. Код ниже открывает новое окно
+            ((JavascriptExecutor) SA.driver).executeScript("window.open()");
+            ArrayList<String> tabs2 = new ArrayList<String>(SA.driver.getWindowHandles());
 
-                //Переключение на новое окно
-                SA.driver.switchTo().window(tabs2.get(1));
+            //Переключение на новое окно
+            SA.driver.switchTo().window(tabs2.get(1));
 
-                //Добавляем к урлу прода приписку "stage"
-                StringBuilder str = new StringBuilder(url);
-                str.insert(11, ".staging");
-                String stage = str.toString();
-                System.out.println("3");
+            //Добавляем к урлу прода приписку "stage"
+            StringBuilder str = new StringBuilder(url);
+            str.insert(11, ".staging");
+            String stage = str.toString();
+            System.out.println("3");
 
-                System.out.println("Открываю созданный урл");
-                openUrl(stage);
-            }
+            System.out.println("Открываю созданный урл");
+            openUrl(stage);
+//            }
         }
 
 

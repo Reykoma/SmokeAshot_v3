@@ -49,7 +49,7 @@ public class MainTests {
     @Test(retryAnalyzer = RestartTest.class)
     public void topline() throws IOException, InterruptedException {
 
-        SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".topline__wrapper");
+        SA.ashot1liteScreen("https://www.rbc.ru/", ".topline__wrapper");
 
     }
 
@@ -59,21 +59,21 @@ public class MainTests {
         Set<By> setIgnoredElements = new HashSet<By>();
         setIgnoredElements.add(By.cssSelector(".topline__forecast__move"));
 
-        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/inttotestv10A", ".l-col-left-border", setIgnoredElements);
+        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/", ".l-col-left-border", setIgnoredElements);
     }
 
 
     @Test(retryAnalyzer = RestartTest.class)
     //Заголовок Ленты новостей
     public void newsFeedHeader() throws IOException, InterruptedException {
-        SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".news-feed__header");
+        SA.ashot1liteScreen("https://www.rbc.ru/", ".news-feed__header");
     }
 
     @Test(retryAnalyzer = RestartTest10.class)
 //    //Элементы Ленты новостей, C Первого по 6ой. С учетом игнора банерной позиции
     public void newfFeedItem() throws IOException, InterruptedException {
 
-        String url = ("https://www.rbc.ru/inttotestv10A");
+        String url = ("https://www.rbc.ru/");
 
         //Элементы которые будем скриншотить
         String cssSelector = ".news-feed__item:nth-child(1), .news-feed__item:nth-child(2), .news-feed__item:nth-child(3), .news-feed__item:nth-child(5), .news-feed__item:nth-child(6), .news-feed__item:nth-child(7)";
@@ -98,13 +98,13 @@ public class MainTests {
         Set<By> setIgnoredElements = new HashSet<By>();
         setIgnoredElements.add(By.cssSelector(".main__big__title"));
 
-        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/inttotestv10A", ".main.js-index-central-column-type", setIgnoredElements);
+        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/", ".main.js-index-central-column-type", setIgnoredElements);
     }
 
     @Test(retryAnalyzer = RestartTest.class)
     //Блок Главное за сутки. Заголовок первого материала.
     public void main__big__title() throws IOException, InterruptedException {
-        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".main__big__title");
+        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/", ".main__big__title");
     }
 
     //    @Test //Биллборд. НЕ СДЕЛАНО
@@ -112,7 +112,7 @@ public class MainTests {
     @Test(retryAnalyzer = RestartTest.class)
     //Блок Главное за сутки. Остальные элементы блока
     public void main__list() throws IOException, InterruptedException {
-        SA.ashot1liteScreen("https://www.rbc.ru/inttotestv10A", ".main__list");
+        SA.ashot1liteScreen("https://www.rbc.ru/", ".main__list");
     }
 
 
@@ -120,7 +120,7 @@ public class MainTests {
 //Блок Центральная колонка. Первые 4 карточки материалов. (три маленьких и одна большая)
     public void central_column_main() throws IOException, InterruptedException {
 
-        String url = ("https://www.rbc.ru/inttotestv10A");
+        String url = ("https://www.rbc.ru/");
 
         String cssSelector = ".js-index-central-column-main:nth-child(1), .js-index-central-column-main:nth-child(2), .js-index-central-column-main:nth-child(3), .js-index-central-column-big.js-index-doscroll[data-vr-contentbox='Position 4']";
 
@@ -195,7 +195,7 @@ public class MainTests {
     @Test(retryAnalyzer = RestartTest10.class)
     //Блок Футер/Подвал
     public void footer() throws IOException, InterruptedException {
-        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/inttotestv10A", ".footer");
+        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/", ".footer");
     }
 
 
