@@ -22,6 +22,10 @@ import java.util.regex.Pattern;
 
 /*
 Создал метод по простановке куки. Работает. Но не работает создание скринов с площадки Стейдж для вторых страниц. Чиню.
+
+Такого вида функция, примерно: url.contains(mass_add)
+Где url - строка в которой надо искать, а mass_add - строка которую надо искать в url
+
  */
 
 
@@ -42,14 +46,27 @@ public class Trash {
 
         SA.driver.get("https://www.rbc.ru/inttotestv10A");
 
-        //В селениум нет команды на открытие нвого окна. Нужно использоваьт другие средства. Код ниже открывает новое окно
-        ((JavascriptExecutor) SA.driver).executeScript("window.open()");
-        ArrayList<String> tabs2 = new ArrayList<String>(SA.driver.getWindowHandles());
+
+        SA.driver.get("https://www.rbc.ru/technology_and_media/23/01/2019/5c48677a9a79477e89283fa4?from=from_main");
+
+        System.out.println("Ждем");
+
+        Thread.sleep(5000);
+
+        System.out.println("Скроллим");
+
+        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
+
+        System.out.println("Закончили");
+
+
+        Thread.sleep(5000);
+
 
         SA.driver.close();
 
         //Переключение на новое окно
-        SA.driver.switchTo().window(tabs2.get(1));
+//        SA.driver.switchTo().window(tabs2.get(1));
 
 
 

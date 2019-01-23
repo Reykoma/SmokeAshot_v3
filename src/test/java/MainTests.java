@@ -6,6 +6,8 @@ import ToolsAshot.SA;
 import ToolsAshot.SAtools;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchWindowException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
@@ -90,16 +92,16 @@ public class MainTests {
     }
 
 
-    @Test(retryAnalyzer = RestartTest.class)
-    //Блок Главное за сутки. Сюжеты и первый материал Кроме заголовка первого материала. Заголовок делается отдельно.
-    // Иначе скриншот кривой. Заголовок первого материала делается в main__big__title
-    public void main() throws IOException, InterruptedException {
-
-        Set<By> setIgnoredElements = new HashSet<By>();
-        setIgnoredElements.add(By.cssSelector(".main__big__title"));
-
-        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/", ".main.js-index-central-column-type", setIgnoredElements);
-    }
+//    @Test(retryAnalyzer = RestartTest.class)
+//    //Блок Главное за сутки. Сюжеты и первый материал Кроме заголовка первого материала. Заголовок делается отдельно.
+//    // Иначе скриншот кривой. Заголовок первого материала делается в main__big__title
+//    public void main() throws IOException, InterruptedException {
+//
+//        Set<By> setIgnoredElements = new HashSet<By>();
+//        setIgnoredElements.add(By.cssSelector(".main__big__title"));
+//
+//        SA.ashot3ShootingAndIgnoreElements("https://www.rbc.ru/", ".main.js-index-central-column-type", setIgnoredElements);
+//    }
 
     @Test(retryAnalyzer = RestartTest.class)
     //Блок Главное за сутки. Заголовок первого материала.
@@ -201,7 +203,13 @@ public class MainTests {
 
     @AfterSuite
     public void dfgdfg() {
-        SAtools.jsWindowClose();
-        SAtools.quitDriver();
+
+
+
+//            SAtools.jsWindowClose();
+
+
+            SAtools.quitDriver();
+
     }
 }

@@ -2,6 +2,7 @@ package ToolsAshot;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
@@ -159,10 +160,10 @@ public class SAtools {
 
         WebElement myWebElement1 = SA.driver.findElement(By.cssSelector(element));
 
-        //Прокрутка окна браузера до нужного элемента
-//        Actions actions = new Actions(SA.driver);
-//        actions.moveToElement(myWebElement1);
-//        actions.perform();
+//        Прокрутка окна браузера до нужного элемента
+        Actions actions = new Actions(SA.driver);
+        actions.moveToElement(myWebElement1);
+        actions.perform();
 
 //        Thread.sleep(3000); //Вместо ожидания хорошо бы тту написать метод. Который проверяет грузится ли какие нибудь js сейчас. И если да, то ждет их загрузки
 
@@ -350,9 +351,8 @@ public class SAtools {
         WebElement webElement = SA.driver.findElement(By.cssSelector(".footer"));
 
         //Цикл. Если длинна страницы "длинная" то есть больше 15000px то ничего не делаем. Если же меньше 15000px то скролим до подвала с ожиданиями
-        if (contentWidt1h1 >= 15000) {
+        if (contentWidt1h1 >= 10000) {
             System.out.println("Длинна страницы больше 15000px, пропускаем скролл");
-
 
         } else {
             System.out.println("Длинна страницы меньше 15000px, скролим до подвала");
@@ -380,10 +380,9 @@ public class SAtools {
             ((JavascriptExecutor) SA.driver).executeScript("arguments[0].scrollIntoView();", webElement);
 
 
+            scrollHeight();
         }
 
-        //Экспериментальный шаг. Возможно повысит стабильносьт тестов на слайдовых страницах
-        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
     }
 
     public static Screenshot screenElementsAndAddIgnor(String elements, Set<By> ignorElements) {
@@ -419,23 +418,18 @@ public class SAtools {
         if (actualUrl.equals("data:,")) {
             System.out.println("если текущий урл 'data:,' то открываем прод");
             openUrl(url);
-        }
-
-        else if (actualUrl.equals("about:blank")) {
-            System.out.println("если текущий урл 'data:,' то открываем прод");
+        } else if (actualUrl.equals("about:blank")) {
+            System.out.println("если текущий урл 'about:blank' то открываем прод");
             openUrl(url);
 
 
-        }
-        else if  (actualUrl.equals(url)) {
+        } else if (actualUrl.equals(url)) {
             System.out.println("если текущий урл 'url из теста' Ничего не открываем.");
 
-        }
-        else  {
+        } else {
             System.out.println("текущий урл НЕ равен 'url из теста' открываем урл из теста");
             openUrl(url);
         }
-
 
 
 //        System.out.println("если текущий урл 'data:,' то открываем прод");
@@ -466,10 +460,25 @@ public class SAtools {
         System.out.println("Текущее количество вкладок = " + size);
 
         if (size == 2) {
-//            if (actualUrl.equals("https://www.rbc.ru/")) {
             System.out.println("Если вкладок 2 переключаемся на соседнюю вкладку");
             SA.driver.switchTo().window(tabs.get(1));
-//            }
+
+
+            //Добавляем к урлу прода приписку "stage"
+            StringBuilder str = new StringBuilder(url);
+            str.insert(11, ".staging");
+            String stage = str.toString();
+
+            if (actualUrl.equals(stage)) {
+                System.out.println("Текущий урл = ожидаемому, а именно = " + SA.driver.getCurrentUrl());
+            } else {
+                System.out.println("Текущий урл НЕ равен ожидаемому, а именно = " + SA.driver.getCurrentUrl());
+                System.out.println("Открываем корректный урл и открываем его");
+
+                openUrl(stage);
+            }
+
+
         }
 
         if (size == 1) {
@@ -488,8 +497,7 @@ public class SAtools {
             StringBuilder str = new StringBuilder(url);
             str.insert(11, ".staging");
             String stage = str.toString();
-            System.out.println("3");
-
+            System.out.println("Добавляем к урлу приписку \"stage\"");
             System.out.println("Открываю созданный урл");
             openUrl(stage);
 //            }
@@ -510,5 +518,18 @@ public class SAtools {
         }
         assertEquals(SA.diff1.getDiffSize(), 0);
 
+    }
+
+    static void scrollHeight() {
+        //Используется когда нужно проскролить страницу в самый вверх.
+//        Если использовать на главной v10 повышает стабильность тестов. Элементы для создания скриншотов лучше находятся
+
+//        Если использоваьт на слайдовых. То помогает вернуться на первый слайд.
+//      Бывает полезно так как урл сайта меняется если делать скриншоты внизу первого слайда например.
+        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
+        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
+        ((JavascriptExecutor) SA.driver).executeScript("window.scrollTo(0, document.head.scrollHeight)");
+
+        System.out.println("Метод scrollHeight Выполнили скролл вверх страницы и текущий урл " + SA.driver.getCurrentUrl());
     }
 }
