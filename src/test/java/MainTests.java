@@ -51,7 +51,7 @@ public class MainTests {
     @Test(retryAnalyzer = RestartTest.class)
     public void topline() throws IOException, InterruptedException {
 
-        SA.ashot1liteScreen("https://www.rbc.ru/", ".topline__wrapper");
+        SA.ashot2scrollForFooterAndWait("https://www.rbc.ru/", ".topline__wrapper");
 
     }
 

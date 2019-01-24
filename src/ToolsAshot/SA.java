@@ -46,6 +46,9 @@ public class SA {
         Screenshot prodScreenshot = SAtools.screenShootingStrategy(element);
         SAtools.saveScreenshot("Prod", prodScreenshot, element);
 
+        //Скролл в самый вверх страницы. Помогает на слайдовых страницах не оказаться на втором слайде
+        SAtools.scrollHeight();
+
         //Открываем новую вкладку
 //        SAtools.openNewTabOrSwitchToStage(url);
 
@@ -69,6 +72,9 @@ public class SA {
 //        делаем скрин
         Screenshot stageScreenshot = SAtools.screenShootingStrategy(element);
         SAtools.saveScreenshot("Stage", stageScreenshot, element);
+
+        //Скролл в самый вверх страницы. Помогает на слайдовых страницах не оказаться на втором слайде
+        SAtools.scrollHeight();
 
         SAtools.switchToProd();
 

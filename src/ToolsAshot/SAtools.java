@@ -100,13 +100,15 @@ public class SAtools {
     }
 
     static void saveScreenshot(String stageOrProdUrl, Screenshot screenshot, String element) throws IOException {
-        System.out.println("метод saveScreenshot. Сохраняем скриншот");
-        //Перед сохранением из селектора убираем все спецсимволы. Иначе Windows будет ругаться на недопустимое название
-        element.replaceAll("[-+.^:,]", "");//.substring(10).substring(10);
+        //Временно отключил. За ненадобностью. Если включите ничего страшного не будет. Просто начнут создаваться и сохраняться скрины с площадок стейдж и прод.
 
-        //Сохраняем скрин с ошибками
-        ImageIO.write(screenshot.getImage(), "png", new File("Screenshot\\" + stageOrProdUrl + element + ".png"));
-        System.out.println("метод saveScreenshot. Сохранили успешно.");
+//        System.out.println("метод saveScreenshot. Сохраняем скриншот");
+//        //Перед сохранением из селектора убираем все спецсимволы. Иначе Windows будет ругаться на недопустимое название
+//        element.replaceAll("[-+.^:,]", "");//.substring(10).substring(10);
+//
+//        //Сохраняем скрин с ошибками
+//        ImageIO.write(screenshot.getImage(), "png", new File("Screenshot\\" + stageOrProdUrl + element + ".png"));
+//        System.out.println("метод saveScreenshot. Сохранили успешно.");
 
     }
 
